@@ -2,73 +2,68 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public void main(String[] args) {
-        Scanner inp = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
         ArrayList<BankAccount> accounts = new ArrayList<>();
-        while (true) {
 
-            System.out.print("Enter Account Number: ");
-            int bankaccount = inp.nextInt();
 
-            System.out.print("Enter  Name: ");
-            String name = inp.next();
+        BankAccount acc = new BankAccount(1001, "Ali", 500);
+        accounts.add(acc);
 
-            System.out.print("Enter Balance: ");
-            double balance = inp.nextDouble();
+        int choice = 0;
 
-            BankAccount acc = new BankAccount(bankaccount, name, balance);
-            accounts.add(acc);
+        while (choice != 4) {
 
-            System.out.println("Account added successfully.");
+            System.out.println("\n1- Deposit");
+            System.out.println("2- Withdraw");
+            System.out.println("3- Check Balance");
+            System.out.println("4- Exit");
 
-            System.out.print("Enter Account Number to search: ");
-            String search = inp.next();
+            System.out.print("Choose: ");
+            choice = input.nextInt();
 
-            BankAccount found = null;
+            try {
 
-            for (BankAccount a : accounts) {
-                if (search.equals(a.AccountNumber)) {
-                    found = a;
-                    break;
+                if (choice == 1) {
+
+                    System.out.print("Enter deposit amount: ");
+                    double dep = input.nextDouble();
+                    acc.deposit(dep);
+
                 }
-            }
+                else if (choice == 2) {
 
-            if (found != null) {
+                    System.out.print("Enter withdraw amount: ");
+                    double wit = input.nextDouble();
+                    acc.withdraw(wit);
 
-                found.displayBalance();
-
-                System.out.print("Enter amount to deposit: ");
-                double dep = inp.nextDouble();
-                found.deposit(dep);
-
-                System.out.print("Enter amount to withdraw: ");
-                double wit = inp.nextDouble();
-                try {
-                    found.withdraw(wit);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
-                found.displayBalance();
+                else if (choice == 3) {
 
-            } else {
-                System.out.println("Account not found");
-            }
+                    acc.displayBalance();
 
-            System.out.print("Add another account? (y/n): ");
-            String ans = inp.next();
-
-            if (ans.equals("n") || ans.equals("N")) {
-                break;
-            }
-            double wit = inp.nextDouble();
-
-            if (found != null) {
-                try {
-                    found.withdraw(wit);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
                 }
-            } else {
-                System.out.println("Account not found");
+                else if (choice == 4) {
+
+                    System.out.println("Program ended");
+
+                }
+                else {
+
+                    System.out.println("Invalid choice");
+
+                }
+
             }
-        }}}
+            catch (Exception e) {
+
+                System.out.println("Error: " + e.getMessage());
+
+            }
+
+        }
+
+    }
+}
